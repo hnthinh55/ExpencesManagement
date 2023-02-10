@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="ExpenseQueries\" />
+    <Folder Include="ExpenseDetailQueries\" />
+    <Folder Include="UserQueries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Expenses.API.Models\Expenses.API.Models.csproj" />
+    <ProjectReference Include="..\Expenses.Data.Access\Expenses.Data.Access.csproj" />
+  </ItemGroup>
+
+</Project>
