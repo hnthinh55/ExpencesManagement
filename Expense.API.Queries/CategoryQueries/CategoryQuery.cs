@@ -23,10 +23,19 @@ namespace Expense.API.Queries.CategoryQueries
 
         public async Task<CategoryModel> AddCategoryAsync(CategoryModel model)
         {
-            var newCategory = _mapper.Map<ExpenseCategory>(model);
-            _context.ExpenseCategories!.Add(newCategory);
-            await _context.SaveChangesAsync();
-            return _mapper.Map<CategoryModel>(newCategory);
+            //var newCategory = _mapper.Map<ExpenseCategory>(model);
+            //_context.ExpenseCategories!.Add(newCategory);
+            //await _context.SaveChangesAsync();
+            //return _mapper.Map<CategoryModel>(newCategory);
+            var newCategory = new ExpenseCategory
+            {
+                Id = model.Id,
+                CategoryName = model.CategoryName,
+                Description = model.Description,
+            };
+            _context.Add(newCategory);
+            _context.SaveChanges();
+            return model;
         }
 
         public async Task DeleteCategoryAsync(int id)
