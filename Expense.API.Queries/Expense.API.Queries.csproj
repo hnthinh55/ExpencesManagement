@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Expenses.API.Models\Expenses.API.Models.csproj" />
     <ProjectReference Include="..\Expenses.Data.Access\Expenses.Data.Access.csproj" />
+    <ProjectReference Include="..\Expenses.Data.Model\Expenses.Data.Model.csproj" />
   </ItemGroup>
 
 </Project>

@@ -23,7 +23,7 @@ namespace ExpensesManagement.Controllers
         {
             try
             {
-                return Ok(await _categoryQuery.GetCategoriesAsync());
+                return Ok(await _categoryQuery.GetAsync());
             }
             catch
             {
@@ -35,7 +35,7 @@ namespace ExpensesManagement.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int id)
         {
-            var book = await _categoryQuery.GetCategoryAsync(id);
+            var book = await _categoryQuery.GetIdAsync(id);
             return book == null ? NotFound() : Ok(book);
         }
 
@@ -43,24 +43,24 @@ namespace ExpensesManagement.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategory(int id, EditCategoryModel category)
         {
-            var checkValid = await _categoryQuery.GetCategoryAsync(id);
+            var checkValid = await _categoryQuery.GetIdAsync(id);
 
             if (checkValid == null)
             {
                 return NotFound();
             }
-            await _categoryQuery.UpdateCategoryAsync(id, category);
+            await _categoryQuery.UpdateAsync(id, category);
             return Ok(category);
         }
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<IActionResult> PostCategory(CategoryModel model)
+        public async Task<IActionResult> PostCategory(EditCategoryModel model)
         {
             try
             {
-                var newBook = await _categoryQuery.AddCategoryAsync(model);
-                return newBook == null ? NotFound() : Ok(newBook);
+                var newCategory = await _categoryQuery.AddAsync(model);
+                return newCategory == null ? NotFound() : Ok(newCategory);
             }
             catch
             {
@@ -72,10 +72,10 @@ namespace ExpensesManagement.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var checkValid = await _categoryQuery.GetCategoryAsync(id);
+            var checkValid = await _categoryQuery.GetIdAsync(id);
             if (checkValid == null)
                 return BadRequest();
-            await _categoryQuery.DeleteCategoryAsync(id);
+            await _categoryQuery.DeleteAsync(id);
             return Ok();
         }
     }

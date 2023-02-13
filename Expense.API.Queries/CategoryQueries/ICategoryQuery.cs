@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace Expense.API.Queries.CategoryQueries
 {
-    public interface ICategoryQuery
+    public interface ICategoryQuery: IBaseCRUD<CategoryModel, EditCategoryModel, int>
     {
-        public Task<List<CategoryModel>> GetCategoriesAsync();
-        public Task<CategoryModel> GetCategoryAsync(int id);
-        public Task<CategoryModel> AddCategoryAsync(CategoryModel model);
-        public Task UpdateCategoryAsync(int id, EditCategoryModel updateModel);
-        public Task DeleteCategoryAsync(int id);
     }
 }

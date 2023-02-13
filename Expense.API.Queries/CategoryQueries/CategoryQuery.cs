@@ -21,24 +21,16 @@ namespace Expense.API.Queries.CategoryQueries
             _mapper = mapper;
         }
 
-        public async Task<CategoryModel> AddCategoryAsync(CategoryModel model)
+        public async Task<CategoryModel> AddAsync(EditCategoryModel model)
         {
-            //var newCategory = _mapper.Map<ExpenseCategory>(model);
-            //_context.ExpenseCategories!.Add(newCategory);
-            //await _context.SaveChangesAsync();
-            //return _mapper.Map<CategoryModel>(newCategory);
-            var newCategory = new ExpenseCategory
-            {
-                Id = model.Id,
-                CategoryName = model.CategoryName,
-                Description = model.Description,
-            };
-            _context.Add(newCategory);
-            _context.SaveChanges();
-            return model;
+            var newCategory = _mapper.Map<EditCategoryModel,ExpenseCategory>(model);
+            _context.ExpenseCategories.Add(newCategory);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<ExpenseCategory,CategoryModel>(newCategory);
+
         }
 
-        public async Task DeleteCategoryAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var delete = _context.ExpenseCategories!.SingleOrDefault(x => x.Id == id);
             if (delete != null)
@@ -48,25 +40,25 @@ namespace Expense.API.Queries.CategoryQueries
             }
         }
 
-        public async Task<List<CategoryModel>> GetCategoriesAsync()
+        public async Task<List<CategoryModel>> GetAsync()
         {
             var categories = await _context.ExpenseCategories!.ToListAsync();
             return _mapper.Map<List<CategoryModel>>(categories);
         }
 
-        public async Task<CategoryModel> GetCategoryAsync(int id)
+        public async Task<CategoryModel> GetIdAsync(int id)
         {
             var category = await _context.ExpenseCategories!.FindAsync(id);
             return _mapper.Map<CategoryModel>(category);
         }
 
-        public async Task UpdateCategoryAsync(int id, EditCategoryModel updateModel)
+        public async Task UpdateAsync(int id, EditCategoryModel updateModel)
         {
             var check = _context.ExpenseCategories!.SingleOrDefault(x => x.Id == id);
             if (check != null)
             {
-                var updatebook = _mapper.Map<ExpenseCategory>(updateModel);
-                _context.ExpenseCategories!.Update(updatebook);
+                var update = _mapper.Map<ExpenseCategory>(updateModel);
+                _context.ExpenseCategories!.Update(update);
                 await _context.SaveChangesAsync();
             }
         }
